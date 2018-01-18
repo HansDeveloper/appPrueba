@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class=page>
+  <h1>Cuestionario</h1>
+  <table>
+    <form action="{{ url_for('show_entries') }}" method="post">
+        {% for field in form %}
+        <!-- queda excluir el token csrf -->
+        <tr>
+            {% if field.widget.input_type != 'hidden' %}
+              <th>{{ field.label }}</th>
+              {% if field.description != 'titulo' %}
+                {% if field.description %}
+                  {% if field.type != 'MultiCheckboxField' %}
+                  <td>{{ field(placeholder= field.description) }}</td>
+                  {% else %}
+                  <td>{{ field }} <span style="font-style: italic;">{{ field.description }}</span></td>
+                  {% endif %}
+                {% else %}
+                  <td>{{ field }}</td>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+        </tr>
+        <tr>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                  <td><span style="color: red">{{ error }}</span></td> 
+                {% endfor %}
+            {% endif %}
+        </tr>
+        {% endfor %} 
+        {{ form.csrf_token }}
+        <tr>
+          <td><input type="submit" value="Go"></td> 
+        </tr> 
+    </form>    
+  </table>
+</div>    
+{% endblock %}

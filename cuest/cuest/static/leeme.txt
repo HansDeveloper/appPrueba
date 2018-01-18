@@ -1,0 +1,1 @@
+Estos archivos estarán disponibles apra los usuarios de la app vía HTTP. Aquí van los css  y los javascript
